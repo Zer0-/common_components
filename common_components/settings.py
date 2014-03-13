@@ -1,18 +1,20 @@
 import __main__
 import os
 
-def read_settings(filepath=None):
+def read_settings(location, filename=None):
+    """Reads and parses a json file from a given directory "location".
+    If the filename argument is not given it will attempt to read a file named
+    "settings.local.json", failing to find that it will try "settings.json".
+    This allows a default settings file and a local version to coexist."""
     from json import loads
-    if filepath is None:
-        if hasattr(__main__, '__file__'):
-            here = os.path.dirname(__main__.__file__)
-        else:
-            here = os.path.dirname(__file__)
-        filepath = os.path.join(here, 'settings.local.json')
+    if filename is None:
+        filepath = os.path.join(location, 'settings.local.json')
         if not os.path.exists(filepath):
-            filepath = os.path.join(here, 'settings.json')
+            filepath = os.path.join(location, 'settings.json')
         if not os.path.exists(filepath):
             raise IOError('settings.json file cannot be found!')
+    else:
+        filepath = os.path.join(location, filename)
     with open(filepath, 'r') as jsonsettings:
         return loads(jsonsettings.read())
 
@@ -21,5 +23,9 @@ class Settings(dict):
 
     def __init__(self):
         dict.__init__(self)
-        self.update(read_settings())
-        self['project_dir'] = os.path.dirname(__file__)
+        if hasattr(__main__, '__file__'):
+            here = os.path.dirname(__main__.__file__)
+        else:
+            here = os.path.dirname(__file__)
+        self.update(read_settings(here))
+        self['project_dir'] = here
