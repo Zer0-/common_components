@@ -1,3 +1,4 @@
+import __main__
 import os
 
 def read_settings(filepath=None):
@@ -17,6 +18,7 @@ def read_settings(filepath=None):
 
 class Settings(dict):
     provides = ['json_settings']
+
     def __init__(self):
         dict.__init__(self)
         self.update(read_settings())
