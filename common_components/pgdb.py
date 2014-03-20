@@ -28,5 +28,8 @@ class PostgresDatabaseComponenet:
             with connection.cursor() as cursor:
                 yield cursor
             connection.commit()
+        except:
+            connection.rollback()
+            raise
         finally:
             self.pool.putconn(connection)
