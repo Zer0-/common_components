@@ -1,15 +1,23 @@
-from pyramid_bricks.staticfiles import StaticFile
+from pyramid.path import AssetResolver
+from pyramid_bricks.staticfiles import StaticCss, StaticJs, StaticFile
+from pyramid_bricks.component import CustomComponent
 
-class Sass(StaticFile):
-    requires_configured = ['url_mapper'] + StaticFile.requires_configured
+class Sass(StaticCss):
+    has_build_stage = True
+    relpath = 'scss'
 
-    def __init__(self, url_mapper, *args):
-        super(Sass, self).__init__(*args)
-        self.asset = url_mapper.resolve(self.asset)
+class Coffee(StaticJs):
+    has_build_stage = True
+    relpath = 'coffee'
+
+class StaticLib(StaticFile):
+    """A static asset or a directory with static assets that's needed
+    to build other static assets but is not directly used by the page"""
+    custom_attributes = ('asset',)
+    has_build_stage = True
 
     def __call__(self):
-        return '<link rel="stylesheet" href="{}" />'.format(self.asset)
+        return ''
 
-class Coffee(Sass):
-    def __call__(self):
-        return '<script src="{}"></script>'.format(self.asset)
+class SassLib(StaticLib):
+    relpath = 'scss'
