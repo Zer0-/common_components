@@ -40,6 +40,12 @@ class PostgresThreadPool:
             port=dbsettings.get('port')
         )
 
+    def getconn(self):
+        return self.pool.getconn()
+
+    def putconn(self, connection):
+        return self.pool.putconn(connection)
+
 class DatabaseComponent:
     provides = ['sql_database']
     requires_configured = ['db_connection_pool']
