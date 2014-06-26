@@ -18,32 +18,30 @@ class Settings(dict):
 class TestSqliteComponent(unittest.TestCase):
     def setUp(self):
         self.bricks = Bricks()
-        for component in (
-            Settings,
-            SqliteThreadPool
-        ):
-            self.bricks.add(component)
+        self.bricks.add(Settings)
+        self.pool = self.bricks.add(SqliteThreadPool)
         self.db = self.bricks.add(DatabaseComponent)
 
     def test_trivial(self):
         with self.db.cursor as cursor:
             pass
+        self.assertEqual(len(self.pool.connections), 1)
 
     def testExec(self):
         with self.db.cursor as cursor:
             cursor.execute("SELECT 1, 'two';")
             result = cursor.fetchone()
         self.assertEqual(result, (1, 'two'))
+        self.assertEqual(len(self.pool.connections), 1)
 
     def testPool(self):
         import threading
         connections = set()
-        pool = self.bricks.components[SqliteThreadPool]
         threads = set()
         def target():
-            c = pool.getconn()
+            c = self.pool.getconn()
             connections.add(c)
-            pool.putconn(c)
+            self.pool.putconn(c)
 
         for i in range(3):
             t = threading.Thread(target=target)
@@ -52,7 +50,7 @@ class TestSqliteComponent(unittest.TestCase):
         for thread in threads:
             thread.join()
         self.assertEqual(len(connections), 3)
-        self.assertEqual(len(pool.connections), 3)
+        self.assertEqual(len(self.pool.connections), 3)
     
 if __name__ == '__main__':
     unittest.main()
