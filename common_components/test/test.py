@@ -1,7 +1,7 @@
 import unittest
 from os.path import join, exists
 from pyramid_bricks import Settings
-from pyramid_bricks import PyramidBricks
+from pyramid_bricks import Bricks
 from pyramid_bricks.staticfiles import StaticManager
 from pyramid_bricks.static_builder import establish_static_assets
 from test_components.testcomponents import (
@@ -11,12 +11,14 @@ from test_components.testcomponents import (
 
 class TestCompiledAssetBuilout(unittest.TestCase):
     def setUp(self):
-        self.pbricks = PyramidBricks(
+        self.pbricks = Bricks()
+        for component in (
             Settings,
             StaticManager,
             testscss,
             testlib
-        )
+        ):
+            self.pbricks.add(component)
 
     def testAssetCopy(self):
         from os.path import exists
