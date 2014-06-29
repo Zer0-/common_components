@@ -1,7 +1,7 @@
 from os.path import join, splitext, basename
 from pyramid.path import AssetResolver
-from pyramid_bricks.staticfiles import StaticCss, StaticJs, StaticFile
-from pyramid_bricks.component import CustomComponent
+from bricks.staticfiles import StaticCss, StaticJs, StaticFile
+from bricks.component import CustomComponent
 
 class _BuiltStatic:
     has_build_stage = True

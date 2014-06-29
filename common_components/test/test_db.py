@@ -1,6 +1,6 @@
 import unittest
 from common_components.db import SqliteThreadPool, DatabaseComponent
-from pyramid_bricks import Bricks
+from bricks import Bricks
 
 settings = {
     'database': {

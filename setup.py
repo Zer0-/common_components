@@ -2,12 +2,12 @@ import os
 from setuptools import setup, find_packages
 
 requires = [
-    'pyramid_bricks',
+    'bricks',
     'psycopg2',
 ]
 
 links = [
-    'git+https://github.com/Zer0-/pyramid_bricks.git#egg=pyramid_bricks',
+    'git+https://github.com/Zer0-/bricks.git#egg=bricks',
 ]
 
 setup(

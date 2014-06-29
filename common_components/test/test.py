@@ -1,9 +1,9 @@
 import unittest
 from os.path import join, exists
-from pyramid_bricks import Settings
-from pyramid_bricks import Bricks
-from pyramid_bricks.staticfiles import StaticManager
-from pyramid_bricks.static_builder import establish_static_assets
+from bricks import Settings
+from bricks import Bricks
+from bricks.staticfiles import StaticManager
+from bricks.static_builder import establish_static_assets
 from test_components.testcomponents import (
     testscss,
     testlib
