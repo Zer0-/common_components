@@ -1,4 +1,4 @@
 {
-    "static_buildout_dir": "/tmp/staticbuild",
+    "static_buildout_dir": "/tmp/teststaticbuild",
     "served_static_url": "http://localhost:8888/"
 }

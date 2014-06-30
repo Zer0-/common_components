@@ -22,8 +22,8 @@ class TestCompiledAssetBuilout(unittest.TestCase):
 
     def testAssetCopy(self):
         from os.path import exists
-        establish_static_assets(self.pbricks)
         out_dir = self.pbricks.components['json_settings']['static_buildout_dir']
+        establish_static_assets(self.pbricks)
         self.assertTrue(exists(join(out_dir, 'scss', 'style.scss')))
         self.assertTrue(exists(join(out_dir, 'scss', 'scss_common', 'var.scss')))
 

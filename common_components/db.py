@@ -24,7 +24,7 @@ class SqliteThreadPool:
         self.connections[thread_id] = connection
 
 class PostgresThreadPool:
-    provides = ['db_connection_pool']
+    provides = ['db_connection_pool', 'postgres']
     requires_configured = ['json_settings']
 
     def __init__(self, settings):

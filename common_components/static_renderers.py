@@ -1,7 +1,6 @@
 from os.path import join, splitext, basename
 from pyramid.path import AssetResolver
 from bricks.staticfiles import StaticCss, StaticJs, StaticFile
-from bricks.component import CustomComponent
 
 class _BuiltStatic:
     has_build_stage = True
@@ -23,7 +22,6 @@ class Coffee(_BuiltStatic, StaticJs):
 class StaticLib(StaticFile):
     """A static asset or a directory with static assets that's needed
     to build other static assets but is not directly used by the page."""
-    custom_attributes = ('asset',)
     has_build_stage = True
 
     def __call__(self):
