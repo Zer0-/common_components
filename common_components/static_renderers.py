@@ -1,5 +1,4 @@
 from os.path import join, splitext, basename
-from pyramid.path import AssetResolver
 from bricks.staticfiles import StaticCss, StaticJs, StaticFile
 
 class _BuiltStatic:
