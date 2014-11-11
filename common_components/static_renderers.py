@@ -1,22 +1,22 @@
 from os.path import join, splitext, basename
 from bricks.staticfiles import StaticCss, StaticJs, StaticFile
 
-class _BuiltStatic:
+class _BuiltStatic(StaticFile):
     has_build_stage = True
 
-    def get_url(self):
-        return self.static_url + join(
-            self.relpath,
-            splitext(basename(self.asset_path))[0] + self.extension
-        )
+    def __init__(self, *args):
+        StaticFile.__init__(self, *args)
+        self.url = self.url.rsplit('.', 1)[0] + self.extension
 
-class Sass(_BuiltStatic, StaticCss):
+class Sass(_BuiltStatic):
     relpath = 'scss'
     extension = '.css'
+    target_type = 'css'
 
-class Coffee(_BuiltStatic, StaticJs):
+class Coffee(_BuiltStatic):
     relpath = 'coffee'
     extension = '.js'
+    target_type = 'js'
 
 class StaticLib(StaticFile):
     """A static asset or a directory with static assets that's needed

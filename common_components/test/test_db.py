@@ -36,17 +36,21 @@ class TestSqliteComponent(unittest.TestCase):
 
     def testPool(self):
         import threading
+        lock = threading.Lock()
         connections = set()
         threads = set()
+        lock.acquire()
         def target():
             c = self.pool.getconn()
             connections.add(c)
+            lock.acquire()
             self.pool.putconn(c)
-
+            lock.release()
         for i in range(3):
             t = threading.Thread(target=target)
             t.start()
             threads.add(t)
+        lock.release()
         for thread in threads:
             thread.join()
         self.assertEqual(len(connections), 3)

@@ -2,14 +2,14 @@ import unittest
 from os.path import join, exists
 from bricks import Settings
 from bricks import Bricks
-from bricks.staticfiles import StaticManager
+from bricks.static_manager import StaticManager
 from bricks.static_builder import establish_static_assets
 from test_components.testcomponents import (
     testscss,
     testlib
 )
 
-class TestCompiledAssetBuilout(unittest.TestCase):
+class TestCompiledAssetCollection(unittest.TestCase):
     def setUp(self):
         self.pbricks = Bricks()
         for component in (
@@ -29,7 +29,7 @@ class TestCompiledAssetBuilout(unittest.TestCase):
 
     def testAssetUrl(self):
         scss = self.pbricks.components[testscss]
-        self.assertEqual(scss.get_url(), 'http://localhost:8888/scss/style.css')
+        self.assertEqual(scss.url, 'http://localhost:8888/scss/style.css')
     
 if __name__ == '__main__':
     unittest.main()
