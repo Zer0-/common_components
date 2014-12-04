@@ -6,16 +6,14 @@ class _BuiltStatic(StaticFile):
 
     def __init__(self, *args):
         StaticFile.__init__(self, *args)
-        self.url = self.url.rsplit('.', 1)[0] + self.extension
+        self.url = self.url.rsplit('.', 1)[0] + '.' + self.target_type
 
 class Sass(_BuiltStatic):
     relpath = 'scss'
-    extension = '.css'
     target_type = 'css'
 
 class Coffee(_BuiltStatic):
     relpath = 'coffee'
-    extension = '.js'
     target_type = 'js'
 
 class StaticLib(StaticFile):
