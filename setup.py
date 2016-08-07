@@ -7,7 +7,7 @@ requires = [
 ]
 
 links = [
-    'git+https://github.com/Zer0-/bricks.git#egg=bricks',
+    'git+https://code.vitrostudios.com/phil/bricks.git@dev#egg=bricks',
 ]
 
 setup(
@@ -28,4 +28,5 @@ setup(
     zip_safe=False,
     install_requires=requires,
     dependency_links=links,
+    test_suite='common_components.test'
 )
