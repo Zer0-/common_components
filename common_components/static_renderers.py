@@ -12,15 +12,9 @@ class Sass(_BuiltStatic):
     relpath = 'scss'
     target_type = 'css'
 
-    def __call__(self):
-        return '<link rel="stylesheet" href="{}" />'.format(self.url)
-
 class Coffee(_BuiltStatic):
     relpath = 'coffee'
     target_type = 'js'
-
-    def __call__(self):
-        return '<script src="{}"></script>'.format(self.url)
 
 class StaticLib(StaticFile):
     """A static asset or a directory with static assets that's needed
