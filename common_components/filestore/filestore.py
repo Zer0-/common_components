@@ -16,10 +16,13 @@ class FileStore:
         return '/'.join([identifier[i:i+self.wordlen] for i in range(
                             0, self.identlen, self.wordlen)])
 
+    def create_identifier(self, bin_data):
+        return md5(bin_data).hexdigest()[:self.identlen]
+
     def save(self, filename, bin_data, identifier=None):
         """there better not be any '/' chars in the filename you hear!"""
         if identifier is None:
-            identifier = md5(filename.encode('utf-8')).hexdigest()[:self.identlen]
+            identifier = self.create_identifier(bin_data)
         path = self.get_filepath(filename, identifier)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'wb') as out:
