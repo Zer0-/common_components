@@ -22,7 +22,7 @@ class FileStore:
     def save(self, filename, bin_data, identifier=None):
         """there better not be any '/' chars in the filename you hear!"""
         if identifier is None:
-            identifier = self.create_identifier(bin_data)
+            identifier = self.create_identifier(filename.encode('utf-8'))
         path = self.get_filepath(filename, identifier)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'wb') as out:
